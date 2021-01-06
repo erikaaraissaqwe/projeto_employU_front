@@ -1,33 +1,48 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
-import SingIn from './pages/SignIn';
-import SingUp from './pages/SingUp';
+import SignInCandidate from './pages/SignInCandidate';
+import SingUpCandidate from './pages/SingUpCandidate';
 import NotFound from './pages/NotFound';
+import InitialCandidate from './pages/InitialCandidate';
+import PrivateRoute from './components/PrivateRoute';
 
 const Routes = () => {
     return (
-        <Switch>
-            <Route exact path = "/">
-                <Home/>
-            </Route>
-            <Route exact path = "/sobre">
-                <About/>
-            </Route>
-            <Route exact path = "/login">
-                <SingIn/>
-            </Route>
-            <Route exact path = "/cadastro">
-                <SingUp/>
-            </Route>
-            <Route >
-                <NotFound/>
-            </Route>
+        <BrowserRouter>
 
-        </Switch>
+            <Switch>
+
+                <Route exact path = "/">
+                    <Home/>
+                </Route>
+
+                <Route exact path = "/sobre">
+                    <About/>
+                </Route>
+
+                <Route exact path = "/candidato/login">
+                    <SignInCandidate/>
+                </Route>
+
+                <Route exact path = "/candidato/cadastro">
+                    <SingUpCandidate/>
+                </Route>
+
+                <PrivateRoute exact path = "/candidato/inicio">
+                    <InitialCandidate/>
+                </PrivateRoute>
+
+                <Route >
+                    <NotFound/>
+                </Route>
+
+            </Switch>
+
+        </BrowserRouter>
     );
 }
 

@@ -5,12 +5,12 @@ import './style.css';
 
 const { Content } = Layout;
 
-const SignInComponent = () => {
+const SignUnComponent = () => {
     return (
-        <Content className= "login">
+        <Content className= "register">
             <Row>
-                <Col span={24} className= "columnLogin">
-                    Isso vai ser o login
+                <Col span={24} className= "columnRegister">
+                    Isso vai ser o cadastro
                 </Col>
             </Row>
         </Content>
@@ -18,5 +18,5 @@ const SignInComponent = () => {
 }
 
 
-export default SignInComponent;
+export default SignUnComponent;
     
