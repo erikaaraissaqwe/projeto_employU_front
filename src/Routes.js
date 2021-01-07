@@ -6,9 +6,13 @@ import Home from './pages/Home';
 import About from './pages/About';
 import SignInCandidate from './pages/SignInCandidate';
 import SingUpCandidate from './pages/SingUpCandidate';
+import SignInCompany from './pages/SignInCompany';
+import SingUpCompany from './pages/SingUpCompany';
 import NotFound from './pages/NotFound';
 import InitialCandidate from './pages/InitialCandidate';
-import PrivateRoute from './components/PrivateRoute';
+import InitialCompany from './pages/InitialCompany';
+import PrivateRouteCandidate from './components/PrivateRouteCandidate';
+import PrivateRouteCompany from './components/PrivateRouteCompany';
 
 const Routes = () => {
     return (
@@ -24,6 +28,8 @@ const Routes = () => {
                     <About/>
                 </Route>
 
+
+
                 <Route exact path = "/candidato/login">
                     <SignInCandidate/>
                 </Route>
@@ -32,11 +38,27 @@ const Routes = () => {
                     <SingUpCandidate/>
                 </Route>
 
-                <PrivateRoute exact path = "/candidato/inicio">
+                <PrivateRouteCandidate exact path = "/candidato/inicio">
                     <InitialCandidate/>
-                </PrivateRoute>
+                </PrivateRouteCandidate>
 
-                <Route >
+
+
+                <Route exact path = "/empresa/login">
+                    <SignInCompany/>
+                </Route>
+
+                <Route exact path = "/empresa/cadastro">
+                    <SingUpCompany/>
+                </Route>
+
+                <PrivateRouteCompany exact path = "/empresa/inicio">
+                    <InitialCompany/>
+                </PrivateRouteCompany>
+
+                
+
+                <Route>
                     <NotFound/>
                 </Route>
 

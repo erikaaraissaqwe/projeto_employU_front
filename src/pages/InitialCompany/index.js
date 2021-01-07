@@ -6,7 +6,7 @@ import './style.css';
 
 const { Content } = Layout;
 
-const InitialCandidate = () => {
+const InitialCompany = () => {
 
     const [ email ] = useState(useSelector(state=>state.user.email));
     const [ id ] = useState(useSelector(state=>state.user.id));
@@ -26,21 +26,21 @@ const InitialCandidate = () => {
         <Content >
             <Row>
                 <Col span={24} >
-                   <h1> pagina inicial do candidato</h1>
+                   <h1> pagina inicial da empresa</h1>
                 </Col>
                 <br/>
                 <Col span={36} >
                     <button onClick = { testeParaVerDadosSalvos }>Clique aqui no CONSOLE</button>
                 </Col>
+                <br/>
                 <Col span={50} >
                     <button onClick = { logout }>Sair (Deslogar)</button>
                 </Col>
-                <br/>
             </Row>
         </Content>
     );
 }
 
 
-export default InitialCandidate;
+export default InitialCompany;
     

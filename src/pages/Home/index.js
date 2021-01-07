@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Layout } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -6,8 +7,13 @@ import { Link, useHistory } from 'react-router-dom';
 import './style.css';
 
 const Home = () => {
+
     const history = useHistory();
     
+    const tipo = useSelector(state => state.user.tipo ? state.user.tipo : "");
+
+    const isLogged = useSelector(state => state.user.isLogged);
+
     function handleCandidate(){
         history.push("/candidato/login");
     }
@@ -16,8 +22,25 @@ const Home = () => {
         history.push("/empresa/login");
     }
 
+    function check(){
+        if(isLogged){
+            if (tipo === "Candidate") {
+                history.push("/candidato/inicio");
+            }
+            if (tipo === "Company") {
+                history.push("/empresa/inicio");
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    let checked = check();
+
     return (
-        <Layout>
+        {checked} ? <Layout>
             <div className= "home">
                 <h1>Home</h1>
             </div>
@@ -28,6 +51,7 @@ const Home = () => {
             <Link to="/sobre">Sobre</Link>
             
         </Layout>
+        :<></>
     );
 }
 

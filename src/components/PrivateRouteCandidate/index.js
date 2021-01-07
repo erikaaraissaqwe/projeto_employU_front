@@ -11,32 +11,34 @@ export default ({children, ...rest}) => {
     const history = useHistory();
 
     async function check(){
+        let response;
+        try{
+            response = await api.get("/checkCandidate",{
+                headers:{
+                    authorization:token,
+                    user_id : id
+                }
+            });
 
-        const response = await api.get("/checkCandidate",{
-            headers:{
-                authorization:token,
-                user_id : id
+            if(response.data.data === 200){
+                return true;
             }
-        });
-       
-        console.log(response.data);
-        if(response.data.data === 200){
-            return true;
-        }else if(response.data.data === 401){
+
+            return false;
+
+        }catch(error){
             history.push("/");
+            console.clear();
             return false;
         }
         
     }
 
     const checkCandidate = check();
-    console.log(checkCandidate);
+   
     return (
         {checkCandidate}?
         <Route {...rest}>{children}</Route>:
-        <>Sorry</>
+        <></>
     );
-
-    
-
 }
