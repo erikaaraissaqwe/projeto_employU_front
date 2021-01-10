@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Layout } from 'antd';
+import { Button, Card, Col, Layout, Row } from 'antd';
+import { UserOutlined, ShopOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 
 
@@ -38,18 +39,24 @@ const Home = () => {
     }
 
     let checked = check();
+    
 
     return (
         {checked} ? <Layout>
-            <div className= "home">
-                <h1>Home</h1>
-            </div>
+            <Row type="flex" justify="center" align="middle" style={{minHeight: '90vh'}}>
+                <Col className= "home">
+                    <Card>
+                        <h1>Seja bem vindo!</h1>
+                        <h3>Entrar como:</h3>
+                        <Button type="primary" block size="large" shape="round" icon={<UserOutlined />}
+                            onClick = { handleCandidate }>Candidato</Button>
+                        <Button type="primary" block size="large" shape="round" icon={<ShopOutlined />}
+                            onClick = { handleCompany }>Empresa</Button>
 
-            <button onClick = { handleCandidate }>Candidato</button>
-            <button onClick = { handleCompany }>Empresa</button>
-
-            <Link to="/sobre">Sobre</Link>
-            
+                        <Link to="/sobre">Sobre</Link>
+                    </Card>
+                </Col>
+            </Row>
         </Layout>
         :<></>
     );

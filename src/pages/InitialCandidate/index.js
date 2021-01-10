@@ -1,42 +1,44 @@
-import React, {useState} from 'react';
-import { Layout, Col, Row } from 'antd';
+import React, {useEffect, useState} from 'react';
+import { Layout, Col, Row} from 'antd';
 import { useSelector } from 'react-redux';
+import api from '../../services/Api';
+import JobCards from '../../components/JobCards';
 
 import './style.css';
 
 const { Content } = Layout;
 
 const InitialCandidate = () => {
+    const [ authorization ] = useState(useSelector(state=>state.user.token));
+    const [ user_id ] = useState(useSelector(state=>state.user.id));
+    const [jobs, setJobs] = useState([]);
 
-    const [ email ] = useState(useSelector(state=>state.user.email));
-    const [ id ] = useState(useSelector(state=>state.user.id));
-
-    function testeParaVerDadosSalvos(){
-        console.log("Email " + email);
-        console.log("Id " + id);
-
-    }
-
-    function logout(){
-        localStorage.clear();
-        window.location.reload();
-    }
+    useEffect(() => {
+        async function getJobs(){
+            let response;
+            try{
+                response = await api.get("/candidato/vagas", {headers: {authorization, user_id}});
+    
+                setJobs(await response.data.jobs)
+    
+            }catch(error){
+                //console.clear();
+                if(error.response.data.errorMessage === "Nenhuma vaga em aberto"){
+                    alert("Nenhuma vaga encontrada");
+                }
+            }
+        }
+        getJobs();
+    }, [authorization, user_id]);
     
     return (
-        <Content >
+        <Content type="flex" style={{minHeight: '89vh', padding: '6% 3% 0 3%'}}>
             <Row>
-                <Col span={24} >
-                   <h1> pagina inicial do candidato</h1>
+                <Col>
+                   <h1>Vagas disponíveis</h1>
                 </Col>
-                <br/>
-                <Col span={36} >
-                    <button onClick = { testeParaVerDadosSalvos }>Clique aqui no CONSOLE</button>
-                </Col>
-                <Col span={50} >
-                    <button onClick = { logout }>Sair (Deslogar)</button>
-                </Col>
-                <br/>
             </Row>
+            <JobCards jobs={jobs} />
         </Content>
     );
 }

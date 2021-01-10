@@ -1,3 +1,19 @@
 .header{
-    background-color: grey;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.header h2{
+    color: white !important;
+}
+
+.header > div {
+    float: left;
+    width: 120px;
+    height: 31px;
+}
+
+.header span {
+    color: lightgray;
 }
