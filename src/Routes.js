@@ -15,6 +15,7 @@ import PrivateRouteCandidate from './components/PrivateRouteCandidate';
 import PrivateRouteCompany from './components/PrivateRouteCompany';
 
 const Routes = () => {
+    
     return (
         <BrowserRouter>
 

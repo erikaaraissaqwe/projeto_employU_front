@@ -47,7 +47,7 @@ const Home = () => {
 
             <button onClick = { handleCandidate }>Candidato</button>
             <button onClick = { handleCompany }>Empresa</button>
-
+            
             <Link to="/sobre">Sobre</Link>
             
         </Layout>
