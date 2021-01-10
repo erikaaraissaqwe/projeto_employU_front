@@ -1,3 +1,9 @@
-.div{
-    width: auto;
+.about{
+    background-color: white;
+    text-align: center;
 }
+
+h3{
+    text-align: justify;
+}
+

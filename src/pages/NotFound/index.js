@@ -1,21 +1,28 @@
 import React from 'react';
-import { Layout, Col, Row } from 'antd';
+import { Card, Col, Layout, Row } from 'antd';
+import { Link } from 'react-router-dom';
+
 
 import './style.css';
 
-const { Content } = Layout;
-
 const NotFound = () => {
+
     return (
-        <Content className= "notFound">
-            <Row>
-                <Col span={24} className= "columnNotFound">
-                    Não Encontrado
+        <Layout>
+            <Row type="flex" justify="center" align="middle" style={{minHeight: '90vh'}}>
+                <Col className= "about">
+                    <Card>
+                        <h1>Essa página não existe :(</h1>
+                    
+                        <Link to="/">Voltar para a página inicial</Link>
+                    </Card> 
                 </Col>
             </Row>
-        </Content>
+        </Layout>
+        
     );
 }
+
 
 
 export default NotFound;

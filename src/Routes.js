@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound';
 import InitialCandidate from './pages/InitialCandidate';
 import InitialCompany from './pages/InitialCompany';
 import PrivateRouteCandidate from './components/PrivateRouteCandidate';
-import PrivateRouteCompany from './components/PrivateRouteCompany';
+import PrivateRouteCompany from './components/PrivateRouteCompany'
 
 const Routes = () => {
     
@@ -42,8 +42,6 @@ const Routes = () => {
                 <PrivateRouteCandidate exact path = "/candidato/inicio">
                     <InitialCandidate/>
                 </PrivateRouteCandidate>
-
-
 
                 <Route exact path = "/empresa/login">
                     <SignInCompany/>
