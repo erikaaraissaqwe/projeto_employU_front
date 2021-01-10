@@ -1,7 +1,9 @@
-.header{
-    background-color: red;
+.home{
+    background-color: white;
     text-align: center;
-    color: white;
-    width: 60px;
+}
+
+button{
+    margin: 2% 0 !important;
 }
 

@@ -1,3 +1,7 @@
 .div{
     width: auto;
 }
+
+.ant-menu-submenu:hover{
+    background-color: #1890ff !important;
+}

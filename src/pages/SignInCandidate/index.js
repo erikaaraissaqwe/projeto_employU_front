@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Layout, Row } from 'antd';
+import { Layout, Row, Col, Card, Form, Input, Button } from 'antd';
 import { useSelector } from 'react-redux';
 import { useDispatch} from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './style.css';
 import api from '../../services/Api';
 
-const { Content } = Layout;
+//Nao sei se tem algum uso
+//const { Content } = Layout;
 
 const SignInComponent = () => {
 
@@ -22,7 +23,6 @@ const SignInComponent = () => {
     const tipo = useSelector(state => state.user.tipo ? state.user.tipo : "");
 
     const isLogged = useSelector(state => state.user.isLogged);
-
 
     async function handleSubmit(){
         let response;
@@ -81,20 +81,71 @@ const SignInComponent = () => {
 
     let checked = check();
 
+    const layout = {
+        labelCol: { span: 8 },
+        wrapperCol: { span: 24 },
+    };
+      
+    const tailLayout = {
+        wrapperCol: { offset: 0, span: 24 },
+    };
+      
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+      
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const validateMessages = {
+        required: '${label} é um campo necessário!',
+        types: {
+          email: '${label} não é um email válido!',
+        },
+    };
 
     return (
         {checked} ?
-        <Content className= "login">
-            <Row>
-
-                <input type="text" onChange = { event => setEmail(event.target.value) }/>
-            
-                <input type="text" onChange = { event => setPassword(event.target.value) }/>
-                
-                <button type="submit" onClick = { handleSubmit }>Teste</button>
-
+        <Layout className= "login">
+            <Row type="flex" justify="center" align="middle" style={{minHeight: '90vh'}}>
+                <Col span={6} className= "loginForm">
+                    <Card>
+                        <Form {...layout}
+                            name="basic"
+                            layout="vertical"
+                            validateMessages={validateMessages}
+                            initialValues={{ remember: true }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                        >
+                            <h2>Login como candidato</h2>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, type: 'email' }]}
+                            >
+                                <Input onChange = { event => setEmail(event.target.value) }/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Senha"
+                                name="password"
+                                rules={[{ required: true }]}
+                            >
+                                <Input.Password onChange = { event => setPassword(event.target.value) } />
+                            </Form.Item>
+                            <Form.Item {...tailLayout}>
+                                <Button block type="primary" htmlType="submit" onClick = { handleSubmit }>
+                                    Entrar
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                        <span>Não possui conta?</span>
+                        <Link to="/candidato/cadastro"> Cadastre-se</Link>
+                    </Card>
+                </Col>
             </Row>
-        </Content>
+        </Layout>
         : <></>
     );
 }
