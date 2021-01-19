@@ -3,7 +3,8 @@ import { Layout } from 'antd';
 import { useSelector } from 'react-redux';
 
 import './style.css';
-import Nav from '../../Nav';
+import NavCandidate from '../../NavCandidate';
+import NavCompany from '../../NavCompany';
 
 const { Header } = Layout;
 
@@ -14,10 +15,10 @@ const HeaderComponent = () => {
     function check_nav_type(){
         if(isLogged){
             if (tipo === "Candidate") {
-                return <Nav />
+                return <NavCandidate />
             }
             if (tipo === "Company") {
-                // TODO: Company nav
+                return <NavCompany />
             }
         }
         return <span>Recrute ou seja recrutado de forma rápida e eficiente</span>

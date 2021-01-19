@@ -43,7 +43,7 @@ const Home = () => {
 
     return (
         {checked} ? <Layout>
-            <Row type="flex" justify="center" align="middle" style={{minHeight: '90vh'}}>
+            <Row type="flex" justify="center" align="middle" style={{minHeight: '89vh'}}>
                 <Col className= "home">
                     <Card>
                         <hr/>
