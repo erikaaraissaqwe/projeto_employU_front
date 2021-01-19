@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState } from 'react';
 import { Layout, Row, Col, Card, Form, Input, Button } from 'antd';
 import { useSelector } from 'react-redux';
@@ -7,8 +8,6 @@ import { Link, useHistory } from 'react-router-dom';
 import './style.css';
 import api from '../../services/Api';
 
-//Nao sei se tem algum uso
-//const { Content } = Layout;
 
 const SignInComponent = () => {
 
@@ -53,10 +52,10 @@ const SignInComponent = () => {
         }catch(error){
             console.clear();
             if(error.response.data.errorMessage === "User not found"){
-                alert("user n encontrado bb");
+                alert("Usuário não encontrado!");
             }
             else if(error.response.data.errorMessage === "Invalid password"){
-                alert("senha incorreta");
+                alert("Senha incorreta!");
             }
             else{
                 history.push("/");

@@ -1,22 +1,171 @@
-import React from 'react';
-import { Layout, Col, Row } from 'antd';
+/* eslint-disable no-template-curly-in-string */
+import React, { useState } from 'react';
+import { Layout, Row, Col, Card, Form, Input, Button } from 'antd';
+import { useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
 import './style.css';
+import api from '../../services/Api';
 
-const { Content } = Layout;
+const SingUpComponent = () => {
 
-const SignUnComponent = () => {
+    const dispatch = useDispatch();
+
+    const history = useHistory();
+
+    const [email, setEmail] = useState("");
+
+    const [password, setPassword] = useState("");
+
+    const [cnpj, setCnpj] = useState("");
+
+    const [name, setName] = useState("");
+
+    const tipo = useSelector(state => state.user.tipo ? state.user.tipo : "");
+
+    const isLogged = useSelector(state => state.user.isLogged);
+
+    async function handleSubmit(){
+        let response;
+        try{
+            response = await api.post("/empresa/register", {
+                email, password, name, cnpj
+            });
+
+            var token = "Bearer " + response.data.token;
+            var id = response.data.user._id;
+    
+            dispatch({
+                type: "SET_TOKEN_COMPANY",
+                payload: {
+                    token,
+                    isLogged : true,
+                    name,
+                    cnpj,
+                    id,
+                    email,
+                }
+            });
+            
+            history.push("/empresa/inicio");
+
+        }catch(error){
+            console.clear();
+            if(error.response.data.errorMessage === "User already exists"){
+                alert("Usuário já existe");
+                history.push("/empresa/login");
+            }
+            else if(error.response.data.errorMessage === "Registration failed"){
+                alert("Desculpe, aconteceu algum erro na hora do cadastro :( Tente novamente!");
+            }
+            else{
+                history.push("/");
+            }
+        }
+    }
+
+    function check(){
+        if(isLogged){
+            if (tipo === "Candidate") {
+                history.push("/candidato/inicio");
+            }
+            if (tipo === "Company") {
+                history.push("/empresa/inicio");
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    let checked = check();
+
+    const layout = {
+        labelCol: { span: 18 },
+        wrapperCol: { span: 48 },
+    };
+      
+    const tailLayout = {
+        wrapperCol: { offset: 0, span: 48 },
+    };
+      
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+      
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const validateMessages = {
+        required: '${label} é um campo necessário!',
+        types: {
+          email: '${label} não é um email válido!',
+          password : '${label} não é um senha válida!',
+        },
+    };
+    
     return (
-        <Content className= "register">
-            <Row>
-                <Col span={24} className= "columnRegister">
-                    Isso vai ser o cadastro
+        {checked} ?
+        <Layout className= "cadastro">
+            <Row type="flex" justify="center" align="middle" style={{minHeight: '110vh'}}>
+                <Col span={12} className= "cadastroForm">
+                    <Card>
+                        <Form {...layout}
+                            name="basic"
+                            layout="vertical"
+                            validateMessages={validateMessages}
+                            initialValues={{ remember: true }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                        >
+                            <h2>Cadastre-se - Candidato</h2>
+                            <Form.Item
+                                label="Name"
+                                name="name"
+                                rules={[{ required: true }]}
+                            >
+                                <Input onChange = { event => setName(event.target.value) }/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Cnpj"
+                                name="cnpj"
+                                rules={[{ required: true }]}
+                            >
+                                <Input onChange = { event => setCnpj(event.target.value) }/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, type: 'email' }]}
+                            >
+                                <Input onChange = { event => setEmail(event.target.value) }/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Senha"
+                                name="password"
+                                rules={[{ required: true }]}
+                            >
+                                <Input.Password onChange = { event => setPassword(event.target.value) } />
+                            </Form.Item>
+                            <Form.Item {...tailLayout}>
+                                <Button block type="primary" htmlType="submit" onClick = { handleSubmit }>
+                                    Cadastrar
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                        <span>Já é cadastrado? </span>
+                        <Link to="/empresa/login"> Faça login!?</Link>
+                    </Card>
                 </Col>
             </Row>
-        </Content>
+        </Layout>
+        : <></>
     );
 }
 
 
-export default SignUnComponent;
+export default SingUpComponent;
     

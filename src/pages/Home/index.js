@@ -46,13 +46,17 @@ const Home = () => {
             <Row type="flex" justify="center" align="middle" style={{minHeight: '90vh'}}>
                 <Col className= "home">
                     <Card>
+                        <hr/>
                         <h1>Seja bem vindo!</h1>
-                        <h3>Entrar como:</h3>
+                        <hr/>
+                        <br/>
+                        <h3 className= "h3">Entrar como:</h3>
                         <Button type="primary" block size="large" shape="round" icon={<UserOutlined />}
                             onClick = { handleCandidate }>Candidato</Button>
                         <Button type="primary" block size="large" shape="round" icon={<ShopOutlined />}
                             onClick = { handleCompany }>Empresa</Button>
-
+                        <br/>
+                        <br/>
                         <Link to="/sobre">Sobre</Link>
                     </Card>
                 </Col>
