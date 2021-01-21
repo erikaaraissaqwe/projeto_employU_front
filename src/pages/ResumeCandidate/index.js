@@ -13,9 +13,9 @@ const ResumeComponent = () => {
 
     const [address, setAddress] = useState("");
 
-    const [professionalExperiences, setProfessionalExperiences] = useState("");
+    const [professionalExperiences, setProfessionalExperiences] = useState([]);
 
-    const [academicFormations, setAcademicFormations] = useState("");
+    const [academicFormations, setAcademicFormations] = useState([]);
 
     const [ authorization ] = useState(useSelector(state=>state.user.token));
     
@@ -26,8 +26,6 @@ const ResumeComponent = () => {
     const cpf = useSelector(state => state.user.cpf);
 
     const email = useSelector(state => state.user.email);
-
-    const [listAcademicFormations, setListAcademicFormations] = useState([]);
 
     const [listProfessionalExperiences, setListProfessionalExperiences] = useState([]);
 
@@ -91,11 +89,7 @@ const ResumeComponent = () => {
     }
 
     function moreList(){
-        let lista = listProfessionalExperiences;
-        lista.push("t");
-        setListProfessionalExperiences(lista);
-        console.log(listProfessionalExperiences);
-        return true;
+        setProfessionalExperiences([...this.professionalExperiences, '']);
     }
 
     function lessList(index){
@@ -176,12 +170,14 @@ const ResumeComponent = () => {
                                     <Button type="primary"  onClick={moreList}>Mais</Button>
                                 </>
 
-                                {listProfessionalExperiences.map((exp, index) => (
-                                    <>
-                                        <Input key={index+1} style={{width: 800}}  onChange = { event => updateExperiences(event.target.value, index+1) }/>
-                                        <Button type="second" onClick={lessList}>Excluir</Button>
-                                    </>
-                                ))}
+                                {professionalExperiences.map((exp, index) => {
+                                    return(
+                                        <>
+                                            <Input key={index+1} style={{width: 800}}  onChange = { event => updateExperiences(event.target.value, index+1) }/>
+                                            <Button type="second" onClick={lessList}>Excluir</Button>
+                                        </>
+                                    );
+                                    })}
                             </Form.Item>
                             
                             <Form.Item
