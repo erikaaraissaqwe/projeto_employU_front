@@ -17,7 +17,10 @@ const InitialCandidate = () => {
         async function getJobs(){
             let response;
             try{
-                response = await api.get("/candidato/vagas", {headers: {authorization, user_id}});
+                response = await api.get("/candidato/vagas", 
+                {headers: {
+                    authorization, user_id
+                }});
     
                 setJobs(await response.data.jobs)
     
