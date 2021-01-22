@@ -18,8 +18,6 @@ import PrivateRouteCompany from './components/PrivateRouteCompany'
 const Routes = () => {
     
     return (
-        <BrowserRouter>
-
             <Switch>
 
                 <Route exact path = "/">
@@ -68,7 +66,6 @@ const Routes = () => {
 
             </Switch>
 
-        </BrowserRouter>
     );
 }
 
