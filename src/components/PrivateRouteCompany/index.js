@@ -27,7 +27,8 @@ export default ({children, ...rest}) => {
             return false;
 
         }catch(error){
-            history.push("/");
+            localStorage.clear();
+            history.goBack("/");
             console.clear();
             return false;
         }

@@ -8,7 +8,7 @@ import './style.css';
 
 const { Content } = Layout;
 
-const InitialCandidate = () => {
+const InitialCandidate = ({userApplied}) => {
     const [ authorization ] = useState(useSelector(state=>state.user.token));
     const [ user_id ] = useState(useSelector(state=>state.user.id));
     const [jobs, setJobs] = useState([]);
@@ -17,8 +17,12 @@ const InitialCandidate = () => {
         async function getJobs(){
             let response;
             try{
-                response = await api.get("/candidato/vagas", {headers: {authorization, user_id}});
-    
+                if (userApplied) {
+                    response = await api.get("/candidato/vagas/candidatadas", {headers: {authorization, user_id}});
+                }
+                else {
+                    response = await api.get("/candidato/vagas", {headers: {authorization, user_id}});
+                }
                 setJobs(await response.data.jobs)
     
             }catch(error){
@@ -29,7 +33,7 @@ const InitialCandidate = () => {
             }
         }
         getJobs();
-    }, [authorization, user_id]);
+    }, [authorization, userApplied, user_id]);
     
     return (
         <Content type="flex" style={{minHeight: '89vh', padding: '6% 3% 0 3%'}}>

@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import { UserOutlined, LogoutOutlined, ProfileOutlined, FileDoneOutlined, SolutionOutlined } from '@ant-design/icons';
 
 import './style.css';
+import { useHistory } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 
@@ -13,22 +14,21 @@ function logout(){
 
 const NavComponent = () => {
     const [current, setCurrent] = useState('new');
+    const history = useHistory();
 
-    function handleClick(e){
+    const handleClick = (e) => {
         switch (e.key){
-            case current:
-                break
             case 'new':
-                //todo get new
-                setCurrent(e.key)
+                setCurrent(e.key);
+                history.push('/candidato/inicio');
                 break;
             case 'participate':
-                //todo get applied
-                setCurrent(e.key)
+                setCurrent(e.key);
+                history.push('/candidato/concorrentes');
                 break;
             case 'user-data':
                 //todo get edit data
-                setCurrent(e.key)
+                setCurrent(e.key);
                 break;
             case 'logout':
                 logout();

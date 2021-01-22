@@ -16,8 +16,6 @@ const NavComponent = () => {
 
     function handleClick(e){
         switch (e.key){
-            case current:
-                break
             case 'open':
                 //todo get new
                 setCurrent(e.key)
