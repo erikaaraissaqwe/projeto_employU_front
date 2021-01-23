@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,10 +10,13 @@ import SignInCompany from './pages/SignInCompany';
 import SingUpCompany from './pages/SingUpCompany';
 import NotFound from './pages/NotFound';
 import InitialCandidate from './pages/InitialCandidate';
+import ResumeCandidate from './pages/ResumeCandidate';
 import InitialCompany from './pages/InitialCompany';
 import PrivateRouteCandidate from './components/PrivateRouteCandidate';
 import PrivateRouteCompany from './components/PrivateRouteCompany';
-import CandidateJobDetails from './pages/CadidateJobDetails'
+import CandidateJobDetails from './pages/CadidateJobDetails';
+import NewJobOffer from './pages/NewJobOffer';
+import CompanyJobDetails from './pages/CompanyJobDetails';
 
 const Routes = () => {
     
@@ -44,6 +47,10 @@ const Routes = () => {
                 <InitialCandidate userApplied={true}/>
             </PrivateRouteCandidate>
 
+            <PrivateRouteCandidate exact path = "/candidato/curriculo">
+                <ResumeCandidate/>
+            </PrivateRouteCandidate>
+
             <PrivateRouteCandidate path = "/candidato/:jobId">
                 <CandidateJobDetails/>
             </PrivateRouteCandidate>
@@ -56,11 +63,21 @@ const Routes = () => {
                 <SingUpCompany/>
             </Route>
 
+            <Route exact path = "/empresa/login">
+                <SignInCompany/>
+            </Route>
+
             <PrivateRouteCompany exact path = "/empresa/inicio">
                 <InitialCompany/>
             </PrivateRouteCompany>
 
-            
+            <PrivateRouteCompany exact path = "/empresa/nova">
+                <NewJobOffer/>
+            </PrivateRouteCompany>
+
+            <PrivateRouteCompany path = "/empresa/:jobId">
+                <CompanyJobDetails/>
+            </PrivateRouteCompany>
 
             <Route>
                 <NotFound/>

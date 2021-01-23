@@ -28,18 +28,19 @@ const JobDetails = ( {job, userType, userApplied }) => {
                 <p>{jb.description}</p>
                 <h3>Localização:</h3>
                 <p>{jb.address.street}, {jb.address.number} - {jb.address.city}, {jb.address.state}</p>
-                <h3>Diferenciais:</h3>
-                <ul>
-                    {jb.qualifications.map((qInfo, q) => {
-                      return <li key={q}>{qInfo}</li>  
-                    })}
-                </ul>
-                <h3>Requisitos:</h3>
+                {jb.qualifications.length > 0 && <h3>Diferenciais:</h3> }
+                    <ul>
+                        {jb.qualifications.map((qInfo, q) => {
+                        return <li key={q}>{qInfo}</li>  
+                        })}
+                    </ul>
+                {jb.requirements.length > 0 && <h3>Requisitos:</h3> }
                 <ul>
                     {jb.requirements.map((rInfo, r) => {
                         return <li key={r}>{rInfo}</li>  
                     })}
                 </ul>
+                <h4>Informações adicionais:</h4>
                 <p>{jb.additionalInformation}</p>
             </Card>:
             <></>

@@ -48,7 +48,7 @@ const SingUpComponent = () => {
                 }
             });
             
-            history.push("/candidato/inicio");
+            history.push("/candidato/curriculo");
 
         }catch(error){
             console.clear();
@@ -92,7 +92,7 @@ const SingUpComponent = () => {
     };
       
     const onFinish = (values) => {
-        console.log('Success:', values);
+        console.log('Success');
     };
       
     const onFinishFailed = (errorInfo) => {

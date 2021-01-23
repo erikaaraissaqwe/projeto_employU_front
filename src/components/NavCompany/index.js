@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import {  useHistory } from 'react-router-dom';
 import { Menu } from 'antd';
-import { UserOutlined, LogoutOutlined, ProfileOutlined, FileDoneOutlined, AuditOutlined, FileAddOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, FileDoneOutlined, AuditOutlined, FileAddOutlined } from '@ant-design/icons';
 
 import './style.css';
 
@@ -13,19 +14,20 @@ function logout(){
 
 const NavComponent = () => {
     const [current, setCurrent] = useState('open');
+    const history = useHistory();
 
     function handleClick(e){
         switch (e.key){
             case 'open':
-                //todo get new
+                history.push("/empresa/inicio")
                 setCurrent(e.key)
                 break;
             case 'finished':
                 //todo get applied
                 setCurrent(e.key)
                 break;
-            case 'user-data':
-                //todo get edit data
+            case "add":
+                history.push("/empresa/nova")
                 setCurrent(e.key)
                 break;
             case 'logout':
@@ -41,7 +43,6 @@ const NavComponent = () => {
             <Menu.Item icon={<AuditOutlined />} key="finished">Vagas finalizadas</Menu.Item>
             <Menu.Item icon={<FileAddOutlined />} key="add">Nova vaga</Menu.Item>
             <SubMenu key="SubMenu" title="Perfil" style={{float: 'right'}} icon={<UserOutlined />} >
-                <Menu.Item key="user-data" icon={<ProfileOutlined />}>Dados da empresa</Menu.Item>
                 <Menu.Item key="logout" icon={<LogoutOutlined />}>Sair</Menu.Item>
             </SubMenu>
         </Menu>

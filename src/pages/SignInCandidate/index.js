@@ -48,6 +48,7 @@ const SignInComponent = () => {
             });
             
             history.push("/candidato/inicio");
+            console.clear();
 
         }catch(error){
             console.clear();
@@ -90,7 +91,7 @@ const SignInComponent = () => {
     };
       
     const onFinish = (values) => {
-        console.log('Success:', values);
+        console.log('Success');
     };
       
     const onFinishFailed = (errorInfo) => {
