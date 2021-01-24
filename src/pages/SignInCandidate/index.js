@@ -48,6 +48,7 @@ const SignInComponent = () => {
             });
             
             history.push("/candidato/inicio");
+            console.clear();
 
         }catch(error){
             console.clear();

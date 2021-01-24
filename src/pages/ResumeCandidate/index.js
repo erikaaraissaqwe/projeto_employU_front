@@ -13,9 +13,9 @@ const ResumeComponent = () => {
 
     const [address, setAddress] = useState("");
 
-    const [professionalExperiences, setProfessionalExperiences] = useState("");
+    const [professionalExperience, setProfessionalExperiences] = useState([]);
 
-    const [academicFormations, setAcademicFormations] = useState("");
+    const [academicFormation, setAcademicFormations] = useState([]);
 
     const [ authorization ] = useState(useSelector(state=>state.user.token));
     
@@ -27,16 +27,16 @@ const ResumeComponent = () => {
 
     const email = useSelector(state => state.user.email);
 
-    const [listAcademicFormations, setListAcademicFormations] = useState([]);
-
-    const [listProfessionalExperiences, setListProfessionalExperiences] = useState([]);
-
     async function handleSubmit(){
         let response;
+        let professionalExperiences = professionalExperience.toString() ? professionalExperience.toString() : "Não tem experiência";
+        let academicFormations = academicFormation.toString() ? academicFormation.toString() : "Não tem formação";
+        console.log(professionalExperiences)
+        console.log(academicFormations)
         try{
             response = await api.post("/candidato/curriculo/send", {
-                address, 
-                academicFormations, 
+                address,
+                academicFormations,
                 professionalExperiences},
                 {headers: {
                     authorization, 
@@ -66,44 +66,35 @@ const ResumeComponent = () => {
     }
 
     function updateExperiences(params, index) {
-        let splitList = professionalExperiences.split(",");
-        if(splitList.length === index){
-            setProfessionalExperiences(professionalExperiences + ',' + params);
-            return true;
-        }
-        splitList[index] = params;
-        setProfessionalExperiences(splitList.toString());
-        console.log(professionalExperiences);
-
+        let lista = professionalExperience;
+        lista[index] = params;
+        setProfessionalExperiences(lista);
         return true;
     }
     
     function updateAcademic(params, index) {
-        let splitList = professionalExperiences.split(",");
-        if(splitList.length === index){
-            setAcademicFormations(professionalExperiences + ',' + params);
-            return true;
-        }
-        splitList[index] = params;
-        setAcademicFormations(splitList.toString());
-        console.log(professionalExperiences);
+        let lista = academicFormation;
+        lista[index] = params;
+        setAcademicFormations(lista);
         return true;
     }
 
     function moreList(){
-        let lista = listProfessionalExperiences;
-        lista.push("t");
-        setListProfessionalExperiences(lista);
-        console.log(listProfessionalExperiences);
-        return true;
+        setProfessionalExperiences([...professionalExperience, '']);
+        
     }
 
     function lessList(index){
-        let splitList = professionalExperiences.split(",");
-        splitList.remove(index);
-        setAcademicFormations(splitList.toString());
-        console.log(professionalExperiences);
-        return true;
+        setProfessionalExperiences(professionalExperience.splice(index, 1));
+    }
+
+    function moreListAcademic(){
+        setAcademicFormations([...academicFormation, '']);
+        
+    }
+
+    function lessListAcademic(index){
+        setAcademicFormations(academicFormation.splice(index, 1));
     }
 
     const layout = {
@@ -144,20 +135,23 @@ const ResumeComponent = () => {
                             <Form.Item
                                 label="Nome"
                                 name="nome"
+                                initialValue={name}
                             >
-                                <Input value={name} disabled={true}/>
+                                <Input disabled={true}/>
                             </Form.Item>
                             <Form.Item
                                 label="CPF"
                                 name="cpf"
+                                initialValue={cpf}
                             >
                                 <Input value={cpf} disabled={true} />
                             </Form.Item>
                             <Form.Item
                                 label="Email"
                                 name="email"
+                                initialValue={email}
                             >
-                                <Input values={email} disabled={true}/>
+                                <Input disabled={true}/>
                             </Form.Item>
                             <Form.Item
                                 label="Endereço"
@@ -167,29 +161,35 @@ const ResumeComponent = () => {
                                 <Input onChange = { event => setAddress(event.target.value) }/>
                             </Form.Item>
                             <Form.Item
-                                label="Experiência Professional"
-                                name="professionalExperiences"
-                                rules={[{ required: true }]}
+                                name="experiences"
                             >
                                 <>
-                                    <Input key={0} style={{width: 900}}  onChange = { event => updateExperiences(event.target.value, 0) }/>
-                                    <Button type="primary"  onClick={moreList}>Mais</Button>
+                                    <Button type="primary"  onClick={moreList}>Adicionar Experiência</Button>
                                 </>
-
-                                {listProfessionalExperiences.map((exp, index) => (
-                                    <>
-                                        <Input key={index+1} style={{width: 800}}  onChange = { event => updateExperiences(event.target.value, index+1) }/>
-                                        <Button type="second" onClick={lessList}>Excluir</Button>
-                                    </>
-                                ))}
+                                {professionalExperience.map((exp, index) => {
+                                    return(
+                                        <div key={index}>
+                                            <Input  style={{width: 900}} onChange = { event => updateExperiences(event.target.value, index) }/>
+                                            <Button type="second" onClick={function(){lessList(index)}}>Excluir</Button>
+                                        </div>
+                                    );
+                                    })}
                             </Form.Item>
                             
                             <Form.Item
-                                label="Formação Acadêmica"
                                 name="academicFormation"
-                                rules={[{ required: true}]}
                             >
-                                <Input onChange = { event => setAcademicFormations(event.target.value) }/>
+                                 <>
+                                    <Button type="primary"  onClick={moreListAcademic}>Adicionar Formação Acadêmica</Button>
+                                </>
+                                {academicFormation.map((exp, i) => {
+                                    return(
+                                        <div key={i}>
+                                            <Input  style={{width: 900}} onChange = { event => updateAcademic(event.target.value, i) }/>
+                                            <Button type="second" onClick={function(){lessListAcademic(i)}}>Excluir</Button>
+                                        </div>
+                                    );
+                                    })}
                             </Form.Item>
                         
                             <Form.Item {...tailLayout}>

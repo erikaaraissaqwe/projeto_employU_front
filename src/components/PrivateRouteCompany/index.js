@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import api from '../../services/Api';
+import { useHistory } from 'react-router';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({children, ...rest}) => {
@@ -27,7 +28,9 @@ export default ({children, ...rest}) => {
             return false;
 
         }catch(error){
-            history.push("/");
+            localStorage.clear();
+            history.push('/');
+            window.location.reload();
             console.clear();
             return false;
         }

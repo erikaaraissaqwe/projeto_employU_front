@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import api from '../../services/Api';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -8,7 +8,6 @@ export default ({children, ...rest}) => {
 
     const token = useSelector(state => state.user.token);
     const id = useSelector(state => state.user.id);
-    const history = useHistory();
 
     async function check(){
         let response;
@@ -27,7 +26,8 @@ export default ({children, ...rest}) => {
             return false;
 
         }catch(error){
-            history.push("/");
+            localStorage.clear();
+            window.location.reload();
             console.clear();
             return false;
         }

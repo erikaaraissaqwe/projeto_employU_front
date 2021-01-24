@@ -1,27 +1,41 @@
-import React from 'react';
 import { Button, Col, Row, Card} from 'antd';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './style.css';
 
 function handleJob(){
-    this.props.history.push("/candidato/vaga");
+    //this.props.history.push("/candidato/"+job._id);
 }
 const JobCardsComponent = ({ jobs }) => {
+    const [ tipo ] = useState(useSelector(state=>state.user.tipo));
+    const history = useHistory();
     
-    //console.log("jobs:",jobs)
-    return (
+    const handler = function(id){
+        history.push(`${id}`)
+    }
+
+    const headBg = (isOpen) => {
+        return({
+            backgroundColor: isOpen? "#d8e8f2" : "#d9d9d9"
+        });
+    }
+
+    return (jobs?
         <Row gutter={16} style={{padding: '0 2%'}}>
-            {jobs.map((job, i) => (
-                <Col key={i} span={8} style={{marginTop: '1%'}}>
-                    <Card title={job.company.name}>
+            {jobs.map((job) => (
+                <Col key={job._id} span={8} style={{marginTop: '1%'}} onClick={ () => handler(job._id)}>
+                    <Card hoverable title={job.company.name} headStyle={headBg(job.isOpen)}>
                         <h3>Descrição:</h3>
                         {job.description}
-                        <Button type="primary" block size="medium" shape="round" onClick = {handleJob}
+                        <Button type="primary" block size="medium" shape="round" onClick = {this.props.history.push("/candidato/"+job._id)}
                             >Vizualizar Vaga</Button>
                     </Card>
                 </Col>
             ))}
-        </Row>
+        </Row>:
+        <></>
     );
 }
 

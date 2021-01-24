@@ -47,6 +47,7 @@ const SignInComponent = () => {
             });
             
             history.push("/empresa/inicio");
+            console.clear();
 
         }catch(error){
             console.clear();
