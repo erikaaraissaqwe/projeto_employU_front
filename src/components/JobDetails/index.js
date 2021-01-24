@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const JobDetails = ( {job, userType}) => {
     const jb = job.job
-    const extraActions = (isOpen, userApplied) => {
+    const extraActions = (isOpen, userApplied, feedback) => {
         if (userType==="candidato"){
             return(
                 isOpen?
@@ -16,8 +16,10 @@ const JobDetails = ( {job, userType}) => {
                         <Button type="primary" onClick={ showModal }>Desistir</Button>:
                         <Button type="primary">Candidatar-se</Button>
                     :userApplied?
-                        <Button type="primary" onClick={ showModal }>Feedback</Button>:
-                        <></>
+                        feedback?
+                            <></>:
+                            <Button type="primary" onClick={ showModal }>Feedback</Button>
+                        :<></>
             );
         }
         else {
@@ -88,6 +90,7 @@ const JobDetails = ( {job, userType}) => {
     const dropApplication = () => {
         form.submit();
         //todo desistir
+        history.push('inicio');
     };
 
     const closeJob = () => {
@@ -111,7 +114,7 @@ const JobDetails = ( {job, userType}) => {
 
     return (jb?
             <>
-                <Card title={jb.company.name} extra={extraActions(jb.isOpen, jb.isRunning)} headStyle={headBg(jb.isOpen)}>
+                <Card title={jb.company.name} extra={extraActions(jb.isOpen, jb.isRunning, jb.candidateFeedback)} headStyle={headBg(jb.isOpen)}>
                     <h3>Descrição:</h3>
                     <p>{jb.description}</p>
                     <h3>Localização:</h3>
@@ -130,6 +133,25 @@ const JobDetails = ( {job, userType}) => {
                     </ul>
                     <h4>Informações adicionais:</h4>
                     <p>{jb.additionalInformation}</p>
+                    {
+                        jb.candidateFeedback &&
+                        <Card
+                            title="Seu feedback"
+                            type="inner"
+                        >
+                            {jb.candidateFeedback}
+                        </Card>
+                    }
+                    <br />
+                    {
+                        jb.companyFeedback &&
+                        <Card
+                            title="Feedback da empresa"
+                            type="inner"
+                        >
+                            {jb.companyFeedback}
+                        </Card>
+                    }
                 </Card>
                 { setFeedbackModal(jb.isOpen, jb.isRunning) }
              </>:

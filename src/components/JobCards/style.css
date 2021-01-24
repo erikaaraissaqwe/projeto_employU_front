@@ -3,7 +3,7 @@
 }
 
 .ant-card-bordered{
-    box-shadow: 0.5em 0.5em 0.5em #f0f0f0;
+    box-shadow: 0 0 0.5em 0.5em #f0f0f0;
 }
 
 .ant-card-head{
