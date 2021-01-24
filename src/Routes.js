@@ -10,7 +10,6 @@ import SignInCompany from './pages/SignInCompany';
 import SingUpCompany from './pages/SingUpCompany';
 import NotFound from './pages/NotFound';
 import InitialCandidate from './pages/InitialCandidate';
-import JobsCandidate from './pages/JobsCandidate';
 import ResumeCandidate from './pages/ResumeCandidate';
 import InitialCompany from './pages/InitialCompany';
 import PrivateRouteCandidate from './components/PrivateRouteCandidate';
