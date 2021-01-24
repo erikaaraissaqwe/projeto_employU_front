@@ -1,13 +1,11 @@
 import { Col, Row, Card} from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import './style.css';
 
 
 const JobCardsComponent = ({ jobs }) => {
-    const [ tipo ] = useState(useSelector(state=>state.user.tipo));
     const history = useHistory();
     
     const handler = function(id){
