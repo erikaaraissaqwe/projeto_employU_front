@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 
 import './style.css';
 
-function handleJob(){
-    //this.props.history.push("/candidato/"+job._id);
-}
+
 const JobCardsComponent = ({ jobs }) => {
     const [ tipo ] = useState(useSelector(state=>state.user.tipo));
     const history = useHistory();
@@ -29,8 +27,6 @@ const JobCardsComponent = ({ jobs }) => {
                     <Card hoverable title={job.company.name} headStyle={headBg(job.isOpen)}>
                         <h3>Descrição:</h3>
                         {job.description}
-                        <Button type="primary" block size="medium" shape="round" onClick = {this.props.history.push("/candidato/"+job._id)}
-                            >Vizualizar Vaga</Button>
                     </Card>
                 </Col>
             ))}
