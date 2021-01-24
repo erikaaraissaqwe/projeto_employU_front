@@ -3,9 +3,9 @@ import { Card, Button} from 'antd';
 
 import './style.css';
 
-const JobDetails = ( {job, userType, userApplied }) => {
+const JobDetails = ( {job, userType}) => {
     const jb = job.job
-    const extraActions = (isOpen) => {
+    const extraActions = (isOpen, userApplied) => {
         return(
             isOpen?
                 userType==="candidato"?
@@ -23,7 +23,7 @@ const JobDetails = ( {job, userType, userApplied }) => {
     }
 
     return (jb?
-            <Card title={jb.company.name} extra={extraActions(jb.isOpen)} headStyle={headBg(jb.isOpen)}>
+            <Card title={jb.company.name} extra={extraActions(jb.isOpen, jb.isRunning)} headStyle={headBg(jb.isOpen)}>
                 <h3>Descrição:</h3>
                 <p>{jb.description}</p>
                 <h3>Localização:</h3>

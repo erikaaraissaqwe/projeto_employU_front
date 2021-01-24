@@ -29,8 +29,8 @@ export default ({children, ...rest}) => {
 
         }catch(error){
             localStorage.clear();
+            //window.location.reload();
             history.push('/');
-            window.location.reload();
             console.clear();
             return false;
         }

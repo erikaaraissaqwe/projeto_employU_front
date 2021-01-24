@@ -36,7 +36,7 @@ const CandidateJobDetails = (applied) => {
     
     return (
         <Content type="flex" style={{minHeight: '89vh', padding: '85px 15% 3% 15%'}}>
-            <JobDetails job={job} userType={"candidato"} userApplied={false}/>
+            <JobDetails job={job} userType={"candidato"} />
         </Content>
     );
 }
