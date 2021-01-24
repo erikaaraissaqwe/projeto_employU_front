@@ -10,6 +10,7 @@ import SignInCompany from './pages/SignInCompany';
 import SingUpCompany from './pages/SingUpCompany';
 import NotFound from './pages/NotFound';
 import InitialCandidate from './pages/InitialCandidate';
+import JobsCandidate from './pages/JobsCandidate';
 import ResumeCandidate from './pages/ResumeCandidate';
 import InitialCompany from './pages/InitialCompany';
 import PrivateRouteCandidate from './components/PrivateRouteCandidate';
@@ -42,6 +43,10 @@ const Routes = () => {
 
                 <PrivateRouteCandidate exact path = "/candidato/inicio">
                     <InitialCandidate/>
+                </PrivateRouteCandidate>
+
+                <PrivateRouteCandidate exact path = "/candidato/candidatadas">
+                    <JobsCandidate/>
                 </PrivateRouteCandidate>
 
                 <PrivateRouteCandidate exact path = "/candidato/curriculo">

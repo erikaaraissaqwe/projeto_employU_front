@@ -20,7 +20,8 @@ const NavComponent = () => {
                 break
             case 'new':
                 //todo get new
-                setCurrent(e.key)
+                history.push("/candidato/inicio");
+                setCurrent(e.key);
                 break;
             case 'participate':
                 //todo get applied

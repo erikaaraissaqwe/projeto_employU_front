@@ -21,7 +21,6 @@ const InitialCandidate = () => {
                 {headers: {
                     authorization, user_id
                 }});
-    
                 setJobs(await response.data.jobs)
     
             }catch(error){
