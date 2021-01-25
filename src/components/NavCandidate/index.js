@@ -8,10 +8,7 @@ import './style.css';
 const { SubMenu } = Menu;
 
 
-function logout(){
-    localStorage.clear();
-    window.location.reload();
-}
+
 
 
 
@@ -19,6 +16,11 @@ const NavComponent = () => {
     const [current, setCurrent] = useState('new');
     const history = useHistory();
 
+    function logout(){
+        localStorage.clear();
+        history.push("/");
+        window.location.reload();
+    }
     const handleClick = (e) => {
         switch (e.key){
             case 'new':
@@ -31,7 +33,7 @@ const NavComponent = () => {
                 break;
             case 'user-data':
                 setCurrent(e.key);
-                history.push("/candidato/curriculo");
+                history.push("/candidato/curriculo/list");
                 break;
             case 'logout':
                 logout();
