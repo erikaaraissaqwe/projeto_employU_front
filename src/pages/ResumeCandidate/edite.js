@@ -22,25 +22,23 @@ const ResumeComponent = () => {
 
     const email = useSelector(state => state.user.email);
 
-    let street = '';
-    let professionalExperience = [];
-    let academicFormation = [];
-    let response;
+    const [street,setStreet] = useState("")
+    const [professionalExperience,setProfessionalExperience] = useState([]);
+    const [academicFormation,setAcademicFormation] = useState([]);
+
     useEffect(
         () =>{
             const getResume = async ()=>{
                 try{
-                    response = await api.get("/candidato/curriculo/list",
+                    const response = await api.get("/candidato/curriculo/list",
                         {headers: {
                             authorization, 
                             user_id
                         },
-                    });
-                    console.log(response.data);
-                    // setResume(response.data);
-                    
+                    });;
+                    setResume(response.data.curriculum);
                 }catch(error){
-                    // console.clear();
+                    console.clear();
                     if(error.response.data.errorMessage === "No resume found"){
                         alert("Currículo não existe");
                         history.push("/candidato/curriculo");
@@ -49,17 +47,15 @@ const ResumeComponent = () => {
                        // history.push("/");]
                        console.log(error);
                     }
-                }
-            
-                
+                }    
             }
             getResume();
         }, []);
 
     function setResume(curriculum){
-        street = curriculum.address;
-        professionalExperience = curriculum.professionalExperiences.split(",");
-        academicFormation = curriculum.academicFormations.split(",");
+        setProfessionalExperience(curriculum.professionalExperience)
+        setAcademicFormation(curriculum.academicFormation)
+        setStreet(curriculum.address)
     }
 
     async function handleSubmit(values){
@@ -133,6 +129,7 @@ const ResumeComponent = () => {
 
     return (
         <Layout className= "curriculo">
+            {(street==="")?<></>:
             <Row type="flex" justify="center" align="middle" style={{minHeight: '150vh'}}>
                 <Col span={18} className= "curriculoForm">
                     <Card>
@@ -142,7 +139,7 @@ const ResumeComponent = () => {
                             validateMessages={validateMessages}
                             initialValues={{
                                 // { remember: true }
-                                name: name,
+                                nome: name,
                                 email: email,
                                 cpf: cpf,
                                 address: street,
@@ -272,13 +269,13 @@ const ResumeComponent = () => {
                             </Row>
                             <Form.Item {...tailLayout}>
                                 <Button block type="primary" htmlType="submit">
-                                    Cadastrar
+                                    Atualizar
                                 </Button>
                             </Form.Item>
                         </Form>
                     </Card>
                 </Col>
-            </Row>
+            </Row>}
         </Layout>
         
     );
