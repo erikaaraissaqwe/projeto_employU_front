@@ -59,10 +59,7 @@ const Routes = () => {
             <PrivateRouteCandidate path = "/candidato/:jobId">
                 <CandidateJobDetails/>
             </PrivateRouteCandidate>
-
-            <Route exact path = "/empresa/login">
-                <SignInCompany/>
-            </Route>
+            
 
             <Route exact path = "/empresa/cadastro">
                 <SingUpCompany/>

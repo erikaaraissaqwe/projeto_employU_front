@@ -18,9 +18,7 @@ const InitialCompany = () => {
             let response;
             try{
                 response = await api.get("/empresa/vagas", {headers: {authorization, user_id}});
-    
                 setJobs(await response.data.jobs)
-    
             }catch(error){
                 //console.clear();
                 if(error.response.data.errorMessage === "Nenhuma vaga em aberto"){

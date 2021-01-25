@@ -24,8 +24,9 @@ const NavComponent = () => {
     const handleClick = (e) => {
         switch (e.key){
             case 'new':
+                //todo get new
                 setCurrent(e.key);
-                history.push('/candidato/inicio');
+                history.push("/candidato/inicio");
                 break;
             case 'participate':
                 setCurrent(e.key);

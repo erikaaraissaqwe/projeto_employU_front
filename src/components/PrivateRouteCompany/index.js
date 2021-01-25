@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import api from '../../services/Api';
 import { useHistory } from 'react-router';
@@ -10,6 +10,8 @@ export default ({children, ...rest}) => {
     const token = useSelector(state => state.user.token);
     const id = useSelector(state => state.user.id);
     const history = useHistory();
+    const dispatch = useDispatch();
+
 
     async function check(){
         let response;
@@ -28,9 +30,14 @@ export default ({children, ...rest}) => {
             return false;
 
         }catch(error){
-            localStorage.clear();
+            dispatch({
+                type: "LOGOUT",
+                payload: {
+                    isLogged : false,
+                }
+            });
+            //window.location.reload();
             history.push('/');
-            window.location.reload();
             console.clear();
             return false;
         }

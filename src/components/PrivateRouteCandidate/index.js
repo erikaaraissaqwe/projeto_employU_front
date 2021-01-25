@@ -1,13 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import api from '../../services/Api';
+import {  useHistory } from 'react-router-dom';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({children, ...rest}) => {
-
+    const history = useHistory();
     const token = useSelector(state => state.user.token);
     const id = useSelector(state => state.user.id);
+    const dispatch = useDispatch();
 
     async function check(){
         let response;
@@ -26,8 +28,14 @@ export default ({children, ...rest}) => {
             return false;
 
         }catch(error){
-            localStorage.clear();
-            window.location.reload();
+            dispatch({
+                type: "LOGOUT",
+                payload: {
+                    isLogged : false,
+                }
+            });
+            //window.location.reload();
+            history.push('/');
             console.clear();
             return false;
         }
