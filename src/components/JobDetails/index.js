@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Modal, Input, Form} from 'antd';
 import api from '../../services/Api';
 import { useHistory } from 'react-router';
-
+import JobCandidates from '../JobCandidates';
 import './style.css';
 import { useSelector } from 'react-redux';
 
@@ -151,6 +151,11 @@ const JobDetails = ( {job, userType}) => {
                         >
                             {jb.companyFeedback}
                         </Card>
+                    }
+                    <br />
+                    {
+                        userType === 'empresa'?
+                        <JobCandidates vagaId={jb._id}/>:<></>
                     }
                 </Card>
                 { setFeedbackModal(jb.isOpen, jb.isRunning) }
