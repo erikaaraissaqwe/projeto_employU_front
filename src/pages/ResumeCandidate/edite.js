@@ -22,23 +22,23 @@ const ResumeComponent = () => {
 
     const email = useSelector(state => state.user.email);
 
-    let street='';
-    let professionalExperience=[];
-    let academicFormation=[];
-
+    let street = '';
+    let professionalExperience = [];
+    let academicFormation = [];
+    let response;
     useEffect(
         () =>{
             const getResume = async ()=>{
                 try{
-                    const response = await api.post("/candidato/curriculo/update",
+                    response = await api.get("/candidato/curriculo/list",
                         {headers: {
                             authorization, 
                             user_id
                         },
                     });
-
-                    setResume(response.data);
-
+                    console.log(response.data);
+                    // setResume(response.data);
+                    
                 }catch(error){
                     // console.clear();
                     if(error.response.data.errorMessage === "No resume found"){
@@ -46,7 +46,8 @@ const ResumeComponent = () => {
                         history.push("/candidato/curriculo");
                     }
                     else{
-                        history.push("/");
+                       // history.push("/");]
+                       console.log(error);
                     }
                 }
             
@@ -90,7 +91,6 @@ const ResumeComponent = () => {
             });
 
             console.log(response.data);
-            history.push("/candidato/inicio");
 
         }catch(error){
             // console.clear();
@@ -120,7 +120,6 @@ const ResumeComponent = () => {
     };
       
     const onFinish = (values) => {
-        console.log("Fiish0   " + values);
         handleSubmit(values);
     };
       

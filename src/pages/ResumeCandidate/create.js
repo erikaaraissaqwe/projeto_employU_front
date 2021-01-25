@@ -51,6 +51,7 @@ const ResumeComponent = () => {
             });
 
             console.log(response.data);
+            history.push("/candidato/inicio");
 
         }catch(error){
             // console.clear();
