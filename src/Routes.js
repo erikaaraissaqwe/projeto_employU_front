@@ -70,7 +70,11 @@ const Routes = () => {
             </Route>
 
             <PrivateRouteCompany exact path = "/empresa/inicio">
-                <InitialCompany/>
+                <InitialCompany closed={false}/>
+            </PrivateRouteCompany>
+
+            <PrivateRouteCompany exact path = "/empresa/fechadas">
+                <InitialCompany closed={true}/>
             </PrivateRouteCompany>
 
             <PrivateRouteCompany exact path = "/empresa/nova">

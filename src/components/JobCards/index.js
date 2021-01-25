@@ -14,7 +14,7 @@ const JobCardsComponent = ({ jobs }) => {
 
     const headBg = (isOpen) => {
         return({
-            backgroundColor: isOpen? "#d8e8f2" : "#d9d9d9"
+            backgroundColor: (isOpen? "#d8e8f2" : "#d9d9d9")
         });
     }
 

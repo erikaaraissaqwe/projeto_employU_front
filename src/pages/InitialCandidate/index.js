@@ -39,7 +39,7 @@ const InitialCandidate = ({userApplied}) => {
         <Content type="flex" style={{minHeight: '89vh', padding: '6% 3% 0 3%'}}>
             <Row>
                 <Col>
-                   <h1>Vagas disponíveis</h1>
+                    {userApplied?<h1>Vagas disponíveis</h1>:<h1>Vagas candidatadas</h1>}
                 </Col>
             </Row>
             <JobCards jobs={jobs} />
