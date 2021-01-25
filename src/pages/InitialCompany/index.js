@@ -8,7 +8,7 @@ import './style.css';
 
 const { Content } = Layout;
 
-const InitialCompany = () => {
+const InitialCompany = ({closed}) => {
     const [ authorization ] = useState(useSelector(state=>state.user.token));
     const [ user_id ] = useState(useSelector(state=>state.user.id));
     const [jobs, setJobs] = useState([]);
@@ -17,23 +17,26 @@ const InitialCompany = () => {
         async function getJobs(){
             let response;
             try{
-                response = await api.get("/empresa/vagas", {headers: {authorization, user_id}});
-                setJobs(await response.data.jobs)
+                if (!closed) {
+                    response = await api.get("/empresa/vagas", {headers: {authorization, user_id}});
+                }
+                else {
+                    response = await api.get("/empresa/vagas/fechadas", {headers: {authorization, user_id}});
+                }
+                setJobs(await response.data.jobs);
             }catch(error){
                 //console.clear();
-                if(error.response.data.errorMessage === "Nenhuma vaga em aberto"){
-                    alert("Nenhuma vaga encontrada");
-                }
+                alert("Nenhuma vaga encontrada");
             }
         }
         getJobs();
-    }, [authorization, user_id]);
+    }, [authorization, closed, user_id]);
     
     return (
         <Content type="flex" style={{minHeight: '89vh', padding: '6% 3% 0 3%'}}>
             <Row>
                 <Col>
-                   <h1>Vagas abertas</h1>
+                   {closed?<h1>Vagas fechadas</h1>:<h1>Vagas abertas</h1>}
                 </Col>
             </Row>
             <JobCards jobs={jobs} />

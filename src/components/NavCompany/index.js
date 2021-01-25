@@ -23,7 +23,7 @@ const NavComponent = () => {
                 setCurrent(e.key)
                 break;
             case 'finished':
-                //todo get applied
+                history.push("/empresa/fechadas")
                 setCurrent(e.key)
                 break;
             case "add":

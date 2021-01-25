@@ -17,15 +17,14 @@ const JobDetails = ( {job, userType}) => {
     async function handleClick(candInJob){
         try{
             if(candInJob){
-                let response = await api.post(`/candidato/vagas/${jb._id}/candidatar`,{}, {headers: {authorization, user_id}});
-                console.log(response);
+                await api.post(`/candidato/vagas/${jb._id}/candidatar`, {}, {headers: {authorization, user_id}});
                 history.push("/candidato/inicio");
             }else{
-                await api.put(`/candidato/vagas/${jb._id}/desistir`,{}, {headers: {authorization, user_id}});
-                this.showModal();
+                await api.put(`/candidato/vagas/${jb._id}/desistir`, {}, {headers: {authorization, user_id}});
                 history.push("/candidato/inicio");
             }
         }catch(error){
+            console.log(error);
             console.log(error.response.data.errorMessage)
         }
     }
@@ -35,7 +34,7 @@ const JobDetails = ( {job, userType}) => {
             return(
                 isOpen?
                     userApplied?
-                        <Button type="primary" onClick={ () => handleClick(false) }>Desistir</Button>:
+                        <Button type="primary" onClick={ showModal }>Desistir</Button>:
                         <Button type="primary" onClick={ () => handleClick(true) }>Candidatar-se</Button>
                     :userApplied?
                         feedback?
@@ -106,15 +105,25 @@ const JobDetails = ( {job, userType}) => {
         }
     }
 
+    async function handleCloseJob(){
+        try{
+            await api.put(`/empresa/vagas/${jb._id}`, {}, {headers: {authorization, user_id}});
+        }catch(error){
+            console.clear();
+            console.log(error.response.data.errorMessage)
+        }
+    }
+
     const dropApplication = () => {
         form.submit();
-        //todo desistir
+        handleClick(false);
         history.push('inicio');
     };
 
     const closeJob = () => {
         form.submit();
-        //todo fechar vaga
+        handleCloseJob();
+        history.push('inicio');
     };
 
     const handleCancel = () => {
@@ -127,7 +136,7 @@ const JobDetails = ( {job, userType}) => {
 
     const headBg = (isOpen) => {
         return({
-            backgroundColor: isOpen? "#d8e8f2" : "#d9d9d9"
+            backgroundColor: (isOpen? "#d8e8f2" : "#d9d9d9")
         });
     }
 
