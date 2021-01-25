@@ -1,17 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Card, Button} from 'antd';
-
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import api from '../../services/Api';
 import './style.css';
 
 const JobDetails = ( {job, userType}) => {
     const jb = job.job
+    const [ authorization ] = useState(useSelector(state=>state.user.token));
+    const [ user_id ] = useState(useSelector(state=>state.user.id));
+    const { jobId } = useParams();
+
+    async function handleClick(candInJob){
+        try{
+            if(candInJob){
+                await api.post(`/candidato/vagas/${jobId}/candidatar`, {headers: {authorization, user_id}});
+            }else{
+                await api.post(`/candidato/vagas/${jobId}/desistir`, {headers: {authorization, user_id}});
+            }
+        }catch(error){
+            console.clear();
+            console.log(error.response.data.errorMessage)
+        }
+    }
+
     const extraActions = (isOpen, userApplied) => {
         return(
             isOpen?
                 userType==="candidato"?
                     userApplied?
-                        <Button type="primary">Desistir</Button>:
-                        <Button type="primary">Candidatar-se</Button>
+                        <Button type="primary" onClick={() => handleClick(false)}>Desistir</Button>:
+                        <Button type="primary" onClick={() => handleClick(true)}>Candidatar-se</Button>
                     :<Button type="primary">Fechar vaga</Button>
             :<></>
         )
