@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
-import { Card, Button, Modal, Input, Form} from 'antd';
+import React, {useState} from 'react';
+import { useSelector } from 'react-redux';
 import api from '../../services/Api';
+import { Card, Button, Modal, Input, Form} from 'antd';
 import { useHistory } from 'react-router';
 import JobCandidates from '../JobCandidates';
 import './style.css';
-import { useSelector } from 'react-redux';
 
 const JobDetails = ( {job, userType}) => {
     const jb = job.job
+    const [ authorization ] = useState(useSelector(state=>state.user.token));
+    const [ user_id ] = useState(useSelector(state=>state.user.id));
+    const history = useHistory();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [form] = Form.useForm();
+
+    async function handleClick(candInJob){
+        try{
+            if(candInJob){
+                let response = await api.post(`/candidato/vagas/${jb._id}/candidatar`,{}, {headers: {authorization, user_id}});
+                console.log(response);
+                history.push("/candidato/inicio");
+            }else{
+                await api.put(`/candidato/vagas/${jb._id}/desistir`,{}, {headers: {authorization, user_id}});
+                this.showModal();
+                history.push("/candidato/inicio");
+            }
+        }catch(error){
+            console.log(error.response.data.errorMessage)
+        }
+    }
+
     const extraActions = (isOpen, userApplied, feedback) => {
         if (userType==="candidato"){
             return(
                 isOpen?
                     userApplied?
-                        <Button type="primary" onClick={ showModal }>Desistir</Button>:
-                        <Button type="primary">Candidatar-se</Button>
+                        <Button type="primary" onClick={ () => handleClick(false) }>Desistir</Button>:
+                        <Button type="primary" onClick={ () => handleClick(true) }>Candidatar-se</Button>
                     :userApplied?
                         feedback?
                             <></>:
@@ -67,11 +89,8 @@ const JobDetails = ( {job, userType}) => {
         );
     }
     
-    const [ authorization ] = useState(useSelector(state=>state.user.token));
-    const [ user_id ] = useState(useSelector(state=>state.user.id));
-    const history = useHistory();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [form] = Form.useForm();
+    
+    
 
     const onFinish = (values) => {
         handleSubmitFeedback(values);
