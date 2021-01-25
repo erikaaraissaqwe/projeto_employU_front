@@ -20,7 +20,6 @@ const CandidateJobDetails = (applied) => {
             let response;
             try{
                 response = await api.get(`/candidato/vagas/${jobId}`, {headers: {authorization, user_id}});
-    
                 setJob(await response.data)
     
             }catch(error){

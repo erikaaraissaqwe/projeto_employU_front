@@ -10,16 +10,22 @@ const JobDetails = ( {job, userType}) => {
     const jb = job.job
     const [ authorization ] = useState(useSelector(state=>state.user.token));
     const [ user_id ] = useState(useSelector(state=>state.user.id));
+    const history = useHistory();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [form] = Form.useForm();
 
     async function handleClick(candInJob){
         try{
             if(candInJob){
-                await api.post("/candidato/vagas/"+jb._id+"/candidatar", {headers: {authorization, user_id}});
+                let response = await api.post(`/candidato/vagas/${jb._id}/candidatar`,{}, {headers: {authorization, user_id}});
+                console.log(response);
+                history.push("/candidato/inicio");
             }else{
-                await api.post("/candidato/vagas/"+jb._id+"/desistir", {headers: {authorization, user_id}});
+                await api.put(`/candidato/vagas/${jb._id}/desistir`,{}, {headers: {authorization, user_id}});
+                this.showModal();
+                history.push("/candidato/inicio");
             }
         }catch(error){
-            console.clear();
             console.log(error.response.data.errorMessage)
         }
     }
@@ -29,8 +35,8 @@ const JobDetails = ( {job, userType}) => {
             return(
                 isOpen?
                     userApplied?
-                        <Button type="primary" onClick={ showModal }>Desistir</Button>:
-                        <Button type="primary">Candidatar-se</Button>
+                        <Button type="primary" onClick={ () => handleClick(false) }>Desistir</Button>:
+                        <Button type="primary" onClick={ () => handleClick(true) }>Candidatar-se</Button>
                     :userApplied?
                         feedback?
                             <></>:
@@ -83,11 +89,8 @@ const JobDetails = ( {job, userType}) => {
         );
     }
     
-    const [ authorization ] = useState(useSelector(state=>state.user.token));
-    const [ user_id ] = useState(useSelector(state=>state.user.id));
-    const history = useHistory();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [form] = Form.useForm();
+    
+    
 
     const onFinish = (values) => {
         handleSubmitFeedback(values);
