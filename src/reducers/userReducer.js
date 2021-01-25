@@ -34,6 +34,11 @@ export default (state = initialState, action) => {
                     id: action.payload.id,
                     email: action.payload.email,
                 };
+            case 'LOGOUT':
+                return{
+                    ...state,
+                    isLogged: action.payload.isLogged
+                };
         default:
             break;
     }
