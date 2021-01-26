@@ -76,7 +76,7 @@ const ResumeComponent = () => {
         }
         let address = values.address;
         try{
-            response = await api.post("/candidato/curriculo/update", {
+            response = await api.put("/candidato/curriculo/update", {
                 address,
                 academicFormations,
                 professionalExperiences},
@@ -85,8 +85,7 @@ const ResumeComponent = () => {
                     user_id
                 },
             });
-
-            console.log(response.data);
+            window.location.reload();
 
         }catch(error){
             // console.clear();
