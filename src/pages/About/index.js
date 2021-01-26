@@ -38,16 +38,20 @@ const About = () => {
                 <Col className= "about">
                     <Card>
                         <h1>Seja bem vindo ao Employ U!</h1>
-                        <h3>AQUI SERIA O TEXTO DO MOODLE
-                            DHHDHDHHDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDDDDDDDDDDDDD
-                            JSBHHDHHHHHHHHHHHHHHFFFFFFFFFFFFFFDDDDDDDDDDDDDDDDDDDDDDDDDD
-                            JJJJJJJJJJFFFFFFFFFFFFFFFFFFFFFFFFFFFFDDDDDDDDDDDDDDDDDDDDDD
-                            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFJJJJJJJJJJJJJJJJJJJJJJJDDDDDD
-                            NJHGSHBDJKKKKKKKKKKCDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-                            :FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDDDDDDDDDDDDDDDDDDDDDDDDDDD
-                            </h3>
-                    
-                        <Link to="/">Voltar para a página inicial</Link>
+                        <br/>
+                        
+                        <h3>Visto a necessidade da automatização para processos de contratação e de ofertas de vagas, 
+                            como: divulgação de vagas, recebimento e análise de currículos, testes simples que são necessários 
+                            antes de uma entrevista, aplicação para uma determinada vaga,
+                         feedback para empresas e para os candidatos, entre outras atividades.
+                         As atividades citadas acima envolvem tanto a empresa que busca um novo funcionário, 
+                         quanto o candidato para aquele trabalho. E para facilitar esse serviço que pode se 
+                         tornar exaustivo para os envolvidos, 
+                         o nosso grupo decidiu criar o Employ you, ferramenta voltada para a automatização das 
+                         atividades recrutamento, seleção e análise para preencher aquela vaga.
+                        </h3>
+                        <br/>
+                        <Link to="/"><h2>Voltar para a página inicial</h2></Link>
                     </Card> 
                 </Col>
             </Row>

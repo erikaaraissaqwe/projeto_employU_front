@@ -28,7 +28,7 @@ const InitialCandidate = ({userApplied}) => {
             }catch(error){
                 //console.clear();
                 if(error.response.data.errorMessage === "Nenhuma vaga em aberto"){
-                    alert("Nenhuma vaga encontrada");
+                    console.log("Nenhuma vaga encontrada");
                 }
             }
         }

@@ -26,7 +26,7 @@ const InitialCompany = ({closed}) => {
                 setJobs(await response.data.jobs);
             }catch(error){
                 //console.clear();
-                alert("Nenhuma vaga encontrada");
+                console.log("Nenhuma vaga encontrada");
             }
         }
         getJobs();

@@ -26,7 +26,7 @@ const CandidateJobDetails = (applied) => {
                 //console.clear();
 
                 if(error.response.data.errorMessage === "Nenhuma vaga encontrada"){
-                    alert("Nenhuma vaga encontrada");
+                    console.log("Nenhuma vaga encontrada");
                 }
             }
         }

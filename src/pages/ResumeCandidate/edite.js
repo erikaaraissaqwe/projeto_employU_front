@@ -38,15 +38,8 @@ const ResumeComponent = () => {
                     });;
                     setResume(response.data.curriculum);
                 }catch(error){
-                    console.clear();
-                    if(error.response.data.errorMessage === "No resume found"){
-                        alert("Currículo não existe");
-                        history.push("/candidato/curriculo");
-                    }
-                    else{
-                       // history.push("/");]
-                       console.log(error);
-                    }
+
+                    history.push("/candidato/curriculo");
                 }    
             }
             getResume();
