@@ -1,3 +1,7 @@
+#Employ_U 
+
+O projeto completa o front-end do sistema de gerenciamento de vagas e currículos.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
